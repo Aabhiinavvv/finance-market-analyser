@@ -1,0 +1,14 @@
+streamlit
+yfinance
+pandas
+numpy
+plotly
+newsapi-python
+scikit-learn
+xgboost
+ta
+requests
+feedparser
+transformers
+torch
+xgboost
