@@ -155,3 +155,4 @@ def analyze_stock(ticker):
         cons.append("No major negatives")
 
     return overview, pros, cons, financials, balance, cashflow,quarterly 
+
