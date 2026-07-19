@@ -20,6 +20,15 @@ stocks = [
 ]
 
 
+def normalize_ticker(ticker):
+    ticker = ticker.upper().strip()
+
+    if ticker.endswith(".NS") or "." in ticker:
+        return ticker
+
+    return f"{ticker}.NS"
+
+
 def run_screener():
 
     results = []
@@ -112,7 +121,7 @@ def get_candlestick_chart(ticker):
 
 def analyze_stock(ticker):
 
-    ticker = ticker.upper() + ".NS"
+    ticker = normalize_ticker(ticker)
 
     stock = yf.Ticker(ticker)
     info = stock.info

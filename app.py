@@ -17,13 +17,30 @@ from news import get_news
 from ml.prediction import predict_stock
 from ai.chatbot import ask_finance
 
-def normalize_ticker(ticker):
+def ticker_candidates(ticker):
     ticker = ticker.upper().strip()
 
-    if ticker.endswith(".NS"):
-        return ticker
+    if not ticker:
+        return []
 
-    return ticker + ".NS"
+    candidates = [ticker]
+
+    # Plain Indian stock names such as RELIANCE or TCS need the NSE suffix on
+    # Yahoo Finance, while global symbols such as AAPL should be used as typed.
+    if "." not in ticker and not ticker.startswith("^") and "=" not in ticker:
+        candidates.append(f"{ticker}.NS")
+
+    return candidates
+
+
+def download_stock_data(ticker, period):
+    for candidate in ticker_candidates(ticker):
+        data = yf.download(candidate, period=period, progress=False)
+
+        if not data.empty:
+            return candidate, data
+
+    return ticker.upper().strip(), pd.DataFrame()
 
 
 st.set_page_config(layout="wide")
@@ -32,9 +49,7 @@ st.title("📊 Finance Dashboard")
 
 ticker_input = st.text_input("Enter Stock Ticker", "RELIANCE")
 
-ticker = normalize_ticker(ticker_input)
-
-data = yf.download(ticker, period="6mo")
+ticker, data = download_stock_data(ticker_input, "6mo")
 
 if data.empty:
     st.error("Invalid stock ticker")
@@ -118,7 +133,7 @@ with tab1:
     # -----------------------------
     # 📊 Download Data (FIRST)
     # -----------------------------
-    data = yf.download(ticker, period=period_map[selected])
+    ticker, data = download_stock_data(ticker, period_map[selected])
 
     if data.empty:
         st.error("No data found")
