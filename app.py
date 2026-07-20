@@ -97,7 +97,9 @@ col5.metric("Crude Oil", crude)
 # Tabs
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10= st.tabs([
     "📈 Stock Price",
+
     "🔮 Prediction",
+
     "📰 Market News",
     "📊 Stock Screener",
     "🤖 AI Chat",
@@ -105,6 +107,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10= st.tabs([
     "🤖 Ask anything about markets",
     "⚡ Event Impact Detector",
     "🤖 AI Stock Recommendation Engine",
+
     "🧠 Autonomous Market Analyst"
 ])
 
@@ -533,6 +536,7 @@ if question:
         })
 
     st.table(stock_data)
+    
 
            
 
