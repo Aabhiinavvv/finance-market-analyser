@@ -9,13 +9,12 @@ from analytics.event_detector import advanced_event_prediction
 from analytics.stock_recommender import recommend_stocks
 from ai.market_analyst import analyze_market
 from analytics.fundamental_screener import analyze_stock
-from ai.financial_explainer import explain_stock
 from analytics.shareholding import get_shareholding
+from ai.financial_explainer import explain_stock
 
 from news import get_news
-
-from ml.prediction import predict_stock
 from ai.chatbot import ask_finance
+from ml.prediction import predict_stock
 
 def ticker_candidates(ticker):
     ticker = ticker.upper().strip()
@@ -536,7 +535,7 @@ if question:
         })
 
     st.table(stock_data)
-    
+
 
            
 
