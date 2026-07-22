@@ -5,12 +5,13 @@ import plotly.graph_objects as go
 from ai.expert_analysis import analyze_event
 from analytics.event_detector import detect_event, predict_impact
 import yfinance as yf
-from analytics.event_detector import advanced_event_prediction
 from analytics.stock_recommender import recommend_stocks
+from analytics.event_detector import advanced_event_prediction
 from ai.market_analyst import analyze_market
 from analytics.fundamental_screener import analyze_stock
 from analytics.shareholding import get_shareholding
 from ai.financial_explainer import explain_stock
+
 
 from news import get_news
 from ai.chatbot import ask_finance
