@@ -8,8 +8,8 @@ import yfinance as yf
 from analytics.stock_recommender import recommend_stocks
 from analytics.event_detector import advanced_event_prediction
 from ai.market_analyst import analyze_market
-from analytics.fundamental_screener import analyze_stock
 from ai.financial_explainer import explain_stock
+from analytics.fundamental_screener import analyze_stock
 from analytics.shareholding import get_shareholding
 
 
