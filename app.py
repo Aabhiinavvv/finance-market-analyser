@@ -13,7 +13,6 @@ from ai.financial_explainer import explain_stock
 from analytics.shareholding import get_shareholding
 
 
-
 from news import get_news
 from ai.chatbot import ask_finance
 from ml.prediction import predict_stock
