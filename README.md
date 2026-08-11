@@ -1,56 +1,62 @@
 # Finance Market Analyser
 
-An AI-powered Streamlit web app for Indian market analysis, stock price trends, predictions, financial news, event impact detection, and AI-assisted finance explanations.
+AI-assisted market intelligence for Indian equities: market data, financial news, fundamental analysis, event-impact analysis, ML experiments, and finance explanations.
 
-## App Preview
+> **Status: Production hardening in progress.** This repository is an engineering project and is not investment advice. Market data and AI outputs can be delayed, incomplete, or wrong.
 
-Add screenshots or a short demo GIF here so visitors can see how the web app looks and works.
+## What it does
 
-Recommended files:
+- Live market and stock-price views using provider APIs
+- Fundamental and financial-statement analysis
+- Market news ingestion
+- Event-impact classification and rule-based sector mapping
+- Experimental stock prediction
+- AI-assisted financial explanations and market analysis
+- Stock screening and peer comparison
 
-- `docs/screenshots/dashboard.png`
-- `docs/screenshots/prediction.png`
-- `docs/screenshots/ai-chat.png`
-- `docs/screenshots/demo.gif`
+## Architecture direction
 
-After adding screenshots, use this Markdown:
+The target architecture separates the Streamlit UI from application services, external data adapters, analytics/ML, AI providers, persistence, and observability. See [`docs/PRODUCTION_READINESS.md`](docs/PRODUCTION_READINESS.md).
 
-```md
-![Dashboard Preview](docs/screenshots/dashboard.png)
-![Prediction Preview](docs/screenshots/prediction.png)
-![AI Chat Preview](docs/screenshots/ai-chat.png)
-```
-
-## Features
-
-- Live stock price dashboard using `yfinance`
-- Market index cards for NIFTY50, SENSEX, USD/INR, gold, and crude oil
-- Stock prediction using machine learning
-- Business news feed
-- Fundamental analysis and stock screener
-- AI finance chatbot and expert analysis
-- Event impact detector and stock recommendation engine
-
-## Run Locally
+## Run locally
 
 ```bash
+python -m venv .venv
+# Windows: .venv\\Scripts\\activate
+# macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
+
+copy .env.example .env  # Windows
+# cp .env.example .env  # macOS/Linux
+
 streamlit run app.py
 ```
 
-Then open the local Streamlit URL shown in the terminal.
+Never commit `.env` or provider credentials. Production deployments must inject secrets through the platform's secret manager.
 
-## Showcase On GitHub
+## Test
 
-1. Run the app locally with `streamlit run app.py`.
-2. Take screenshots of the main dashboard and important tabs.
-3. Create a folder named `docs/screenshots`.
-4. Add the images inside that folder.
-5. Add the image Markdown in the App Preview section above.
-6. Commit and push the README plus screenshots.
-
-For the best showcase, also deploy the app and add the live link here:
-
-```md
-Live Demo: https://your-app-link
+```bash
+pip install -r requirements.txt
+pip install pytest
+pytest -q
 ```
+
+CI runs automatically on pushes to `main` and pull requests.
+
+## Container
+
+```bash
+docker build -t finance-market-analyser .
+docker run --rm -p 8501:8501 --env-file .env finance-market-analyser
+```
+
+The image includes a Streamlit health check. Do not bake API keys into the image.
+
+## Production readiness
+
+Production readiness is more than a working demo. Before calling this application production-ready, the release must pass the gates in [`docs/PRODUCTION_READINESS.md`](docs/PRODUCTION_READINESS.md), including security scanning, reproducible dependencies, tests, provider resilience, observability, model evaluation, data provenance, financial disclosures, deployment/rollback, and incident response.
+
+## Security
+
+See [`SECURITY.md`](SECURITY.md). A credential previously committed to source control must be revoked/rotated at the provider even after it is removed from the latest source tree.
