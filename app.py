@@ -111,16 +111,12 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10= st.tabs([
     "🧠 Autonomous Market Analyst"
 ])
 
-# -----------------------------
-# Stock Price
-# -----------------------------
+
 with tab1:
 
     st.subheader("Stock Price")
 
-    # -----------------------------
-    # 📅 Time Selector
-    # -----------------------------
+    
     period_map = {
         "1M": "1mo",
         "3M": "3mo",
@@ -133,9 +129,7 @@ with tab1:
 
     selected = st.selectbox("Select Range", list(period_map.keys()))
 
-    # -----------------------------
-    # 📊 Download Data (FIRST)
-    # -----------------------------
+    
     ticker, data = download_stock_data(ticker, period_map[selected])
 
     if data.empty:
@@ -144,9 +138,7 @@ with tab1:
 
     close_price = data["Close"]
 
-    # -----------------------------
-    # 📈 Plot
-    # -----------------------------
+    
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
@@ -165,9 +157,7 @@ with tab1:
 
     st.plotly_chart(fig, width="stretch")
 
-# -----------------------------
-# Prediction
-# -----------------------------
+
 with tab2:
 
     st.subheader("Prediction")
@@ -179,9 +169,7 @@ with tab2:
         value=prediction
     )
 
-# -----------------------------
-# News
-# -----------------------------
+
 with tab3:
 
     st.subheader("Market News")
@@ -200,9 +188,7 @@ with tab3:
 
         st.markdown("---")
 
-# -----------------------------
-# Screener
-# -----------------------------
+#
 with tab4:
 
     st.subheader("🧠 AI Smart Stock Screener")
@@ -264,14 +250,10 @@ with tab4:
 
         st.plotly_chart(fig, use_container_width=True)
 
-        # -----------------------------
-        # 📊 Fundamental Data
-        # -----------------------------
+        
         overview, pros, cons, financials, balance, cashflow ,quarterly= analyze_stock(ticker)
 
-        # -----------------------------
-        # 🔥 AI SUMMARY CARDS
-        # -----------------------------
+       
         st.markdown("## 📊 AI Summary")
 
         col1, col2, col3, col4 = st.columns(4)
@@ -289,15 +271,12 @@ with tab4:
         col3.metric("Risk", risk)
         col4.metric("Verdict", verdict)
 
-        # -----------------------------
-        # 📊 Overview
-        # -----------------------------
+       
         st.markdown("## 📊 Overview")
         st.dataframe(overview)
 
-        # -----------------------------
-        # ✔ Pros / Cons
-        # -----------------------------
+        
+        
         col1, col2 = st.columns(2)
 
         with col1:
@@ -321,9 +300,7 @@ with tab4:
             st.warning("No shareholding data found")
 
 
-                # -----------------------------
-        # 📊 Profit & Loss
-        # -----------------------------
+                
         st.markdown("## 📊 📈 Profit & Loss")
 
         if not financials.empty:
@@ -331,9 +308,7 @@ with tab4:
         else:
             st.warning("No data available")
 
-        # -----------------------------
-        # 📉 Balance Sheet
-        # -----------------------------
+        
         st.markdown("## 📉 Balance Sheet")
 
         if not balance.empty:
@@ -341,9 +316,7 @@ with tab4:
         else:
             st.warning("No data available")
 
-        # -----------------------------
-        # 💰 Cash Flow
-        # -----------------------------
+        
         st.markdown("## 💰 Cash Flow")
 
         if not cashflow.empty:
@@ -351,9 +324,7 @@ with tab4:
         else:
             st.warning("No data available")
 
-        # -----------------------------
-        # 📊 Quarterly Results
-        # -----------------------------
+        
         st.markdown("## 📊 Quarterly Results")
 
         if not quarterly.empty:
@@ -370,9 +341,7 @@ with tab4:
 
 
 
-        # -----------------------------
-        # 🧠 AI ANALYSIS
-        # -----------------------------
+        
         st.markdown("## 🤖 AI Analysis")
 
         try:
@@ -381,9 +350,7 @@ with tab4:
         except:
             st.warning("AI analysis unavailable")
 
-        # -----------------------------
-        # 📊 Peer Comparison
-        # -----------------------------
+        
         st.markdown("## 📊 Peer Comparison")
 
         peers = ["TCS.NS", "INFY.NS", "WIPRO.NS"]
@@ -400,9 +367,7 @@ with tab4:
 
         st.dataframe(peer_data)
 
-        # -----------------------------
-        # 📉 Financial Trends
-        # -----------------------------
+        
         st.markdown("## 📈 Revenue Trend")
 
         if not financials.empty:
@@ -412,9 +377,7 @@ with tab4:
             except:
                 st.write("No revenue data")
 
-        # -----------------------------
-        # 🔥 FINAL VERDICT
-        # -----------------------------
+        
         st.markdown("## 🔥 Final Verdict")
 
         st.write(f"""
@@ -425,9 +388,7 @@ with tab4:
 👉 Recommendation: {verdict}
 """)
 
-# -----------------------------
-# AI Finance Chat
-# -----------------------------
+
 with tab5:
 
     st.subheader("Ask AI About Markets")
